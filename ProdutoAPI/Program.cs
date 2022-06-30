@@ -7,7 +7,9 @@ var builder = WebApplication.CreateBuilder(args);
 // Add services to the container.
 
 builder.Services.AddControllers();
-var connectionString = builder.Configuration.GetConnectionString("Produtos") ?? "Data Source=DBProdutos.db";
+
+
+builder.Services.AddDbContext<ProdutoContexto>(opt => opt.UseInMemoryDatabase("Produtos"));
 
 
 //builder.Services.AddSwaggerGen(c =>
