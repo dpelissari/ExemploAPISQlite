@@ -4,12 +4,13 @@ using ProdutoAPI.Models;
 
 var builder = WebApplication.CreateBuilder(args);
 
-// Add services to the container.
+var connectionString = builder.Configuration.GetConnectionString("Produtos") ?? "Data Source=DbProdutos.db";
 
+// Add services to the container.
 builder.Services.AddControllers();
 
 
-builder.Services.AddDbContext<ProdutoContexto>(opt => opt.UseInMemoryDatabase("Produtos"));
+builder.Services.AddSqlite<ProdutoContexto>(connectionString);
 
 
 //builder.Services.AddSwaggerGen(c =>
@@ -25,6 +26,8 @@ if (builder.Environment.IsDevelopment())
     app.UseDeveloperExceptionPage();
     //app.UseSwagger();
     //app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "TodoApi v1"));
+
+
 }
 
 app.UseHttpsRedirection();
